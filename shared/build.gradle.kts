@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,12 +7,11 @@ plugins {
 
 kotlin {
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -24,9 +22,26 @@ kotlin {
             isStatic = true
         }
     }
-    
+
+    // https://juejin.cn/post/7379059228105621556
+    // https://juejin.cn/post/7444562650917142528
+    // .\gradlew.bat compileDevelopmentExecutableKotlinJs
+    // .\gradlew.bat compileProductionExecutableKotlinJs
+    js(IR) {
+        // https://kotlinlang.org/docs/js-ir-compiler.html
+        useEsModules()
+        browser { }
+        nodejs()
+        binaries.executable()
+        generateTypeScriptDefinitions()
+    }
+
     sourceSets {
         commonMain.dependencies {
+            // put your Multiplatform dependencies here
+        }
+
+        jsMain.dependencies {
             // put your Multiplatform dependencies here
         }
     }

@@ -1,3 +1,5 @@
+import { Greeting } from 'shared/src/main/ets/kmp-harmonyos-shared'
+
 @Entry
 @Component
 struct Index {
@@ -15,6 +17,9 @@ struct Index {
         })
       Button("Greeting").width(120).alignRules({
         middle: { anchor: '__container__', align: HorizontalAlign.Center }
+      }).onClick(() => {
+        let greeting = new Greeting()
+        this.message = greeting.greet()
       })
     }
     .height('100%')

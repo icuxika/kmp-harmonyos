@@ -40,7 +40,8 @@ fun App() {
             var json by remember { mutableStateOf("") }
             Button(onClick = {
                 scope.launch {
-                    json = ApiExecutor().execute()
+                    val apiData = ApiExecutor().requestK<ApiData<String>>()
+                    json = apiData.data ?: apiData.msg
                 }
             }) {
                 Text("execute")

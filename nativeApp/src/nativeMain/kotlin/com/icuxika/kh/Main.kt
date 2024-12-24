@@ -8,8 +8,8 @@ fun main() {
     println(greeting.greet())
     runBlocking {
         launch {
-            val json = ApiExecutor().execute()
-            println(json)
+            val apiData = ApiExecutor().requestK<ApiData<String>>()
+            println(apiData.data)
         }
     }
 }

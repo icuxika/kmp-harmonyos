@@ -22,8 +22,8 @@ fun main() {
                         text("execute")
                         onClickFunction = {
                             scope.launch {
-                                val json = ApiExecutor().execute()
-                                window.alert(json)
+                                val apiData = ApiExecutor().requestK<ApiData<String>>()
+                                window.alert(apiData.data ?: apiData.msg)
                             }
                         }
                     }

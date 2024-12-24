@@ -47,17 +47,35 @@ kotlin {
         isMingwX64 -> mingwX64("native")
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
-    nativeTarget.binaries.staticLib {
-        baseName = "Shared"
+    nativeTarget.binaries {
+        staticLib {
+            baseName = "Shared"
+        }
+        sharedLib {
+            baseName = "Shared"
+        }
     }
 
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.coroutines.core)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.curl)
         }
 
         jsMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation(libs.ktor.client.js)
         }
     }
 }

@@ -32,7 +32,8 @@ kotlin {
 
     sourceSets {
         nativeMain.dependencies {
-            implementation(project(":shared"))
+            implementation(projects.shared)
+            implementation(libs.kotlinx.coroutines.core)
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.icuxika.kh
 
+import io.ktor.client.*
+import io.ktor.client.engine.curl.*
 import kotlin.experimental.ExperimentalNativeApi
 
 @OptIn(ExperimentalNativeApi::class)
@@ -13,3 +15,10 @@ class NativePlatform : Platform {
 }
 
 actual fun getPlatform(): Platform = NativePlatform()
+
+actual fun httpClient(config: HttpClientConfig<*>.() -> Unit) = HttpClient(Curl) {
+    config(this)
+    engine {
+        sslVerify = false
+    }
+}

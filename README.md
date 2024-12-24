@@ -4,10 +4,15 @@
 ```
 $env:ANDROID_HOME = "C:\Users\icuxika\AppData\Local\Android\Sdk\"
 .\gradlew.bat :composeApp:build
+
+adb tcpip 5555
+adb connect 192.168.50.64:5555
+adb install .\composeApp\build\outputs\apk\debug\composeApp-debug.apk
 ```
 
-## 构建 JavaScript
+## 构建 [Shared]JavaScript
 ```
+.\gradlew.bat :shared:compileDevelopmentExecutableKotlinJs
 .\gradlew.bat :shared:compileProductionExecutableKotlinJs
 ```
 在`Harmony OS`中引入的时候需要将文件后缀从`mjs`修改为`js`
@@ -17,7 +22,8 @@ mv .\harmonyosApp\shared\src\main\ets\kmp-harmonyos-shared.mjs .\harmonyosApp\sh
 mv .\harmonyosApp\shared\src\main\ets\kmp-harmonyos-shared.mjs.map .\harmonyosApp\shared\src\main\ets\kmp-harmonyos-shared.js.map
 ```
 
-## 构建 Native
+## 构建 [Shared]Native
 ```
-.\gradlew.bat :nativeApp:build
+.\gradlew.bat :shared:linkDebugStaticNative
+.\gradlew.bat :shared:linkDebugSharedNative
 ```

@@ -27,3 +27,18 @@ mv .\harmonyosApp\shared\src\main\ets\kmp-harmonyos-shared.mjs.map .\harmonyosAp
 .\gradlew.bat :shared:linkDebugStaticNative
 .\gradlew.bat :shared:linkDebugSharedNative
 ```
+
+## 构建 iOS
+> 一般通过Xcode构建部署，以下命令目前只是记录
+```
+xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphoneos OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED=YES clean build
+xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Release -sdk iphoneos OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED=YES clean build
+
+xcodebuild -project iosApp/iosApp.xcodeproj -showBuildSettings
+xcodebuild -showsdks
+
+xcrun xctrace list devices
+xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphoneos -destination "generic/platform=iOS,id=981c7d6492f3dd616c9be040216ec702b8e99bca" OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED=YES clean build 
+sudo xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphoneos -destination "generic/platform=iOS,id=981c7d6492f3dd616c9be040216ec702b8e99bca" OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED=YES install
+xcrun simctl install 981c7d6492f3dd616c9be040216ec702b8e99bca ~/Library/Developer/Xcode/DerivedData/iosApp-apdoiclkrqqmcweiwrxfndyfvkkk/Build/Products/Debug-iphoneos/kmp-harmonyos.app
+```

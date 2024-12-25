@@ -3,6 +3,7 @@ import Shared
 
 struct ContentView: View {
     @State private var showContent = false
+    @State private var json = ""
     var body: some View {
         VStack {
             Button("Click me!") {
@@ -20,6 +21,21 @@ struct ContentView: View {
                 }
                 .transition(.move(edge: .top).combined(with: .opacity))
             }
+            
+            Button("execute") {
+                Task {
+                    do {
+                        ApiExecutor().execute() { (result, error) in
+                            if let result = result {
+                                print(result)
+                                json = result
+                            }
+                        }
+                    }
+                }
+            }
+            
+            Text(json)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding()

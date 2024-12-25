@@ -1,5 +1,7 @@
 package com.icuxika.kh
 
+import io.ktor.client.*
+import io.ktor.client.engine.darwin.*
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
@@ -7,3 +9,7 @@ class IOSPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+
+actual fun httpClient(config: HttpClientConfig<*>.() -> Unit) = HttpClient(Darwin) {
+    config(this)
+}

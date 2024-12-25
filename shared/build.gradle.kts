@@ -64,6 +64,10 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
         }
 
+        iosMain.get().dependsOn(commonMain.get())
+        iosX64Main.get().dependsOn(iosMain.get())
+        iosArm64Main.get().dependsOn(iosMain.get())
+        iosSimulatorArm64Main.get().dependsOn(iosMain.get())
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
